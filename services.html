@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Services — Etherix Develops</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700&family=Bebas+Neue&family=Exo+2:wght@100;300;400;700;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{
+  --nc:#00f5ff;--ng:#ffd700;--nv:#b400ff;--nge:#39ff14;
+  --bg:#020508;--bgm:#070c12;--bgc:#0a1018;--bdr:#182436;
+  --tp:#e8f4ff;--td:#6a8aaa;
+  --gc:0 0 10px #00f5ff,0 0 30px #00f5ff44;
+  --gg:0 0 10px #ffd700,0 0 30px #ffd70044;
+  --gv:0 0 10px #b400ff,0 0 30px #b400ff44;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tp);font-family:'Rajdhani',sans-serif;overflow-x:hidden;cursor:none}
+::selection{background:rgba(0,245,255,.18);color:var(--nc)}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--nc)}
+#cursor-outer{width:36px;height:36px;border:1.5px solid var(--nc);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .12s ease,border-color .25s;box-shadow:var(--gc)}
+#cursor-inner{width:5px;height:5px;background:var(--nc);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#scroll-progress{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--nv),var(--nc),var(--ng));z-index:9997}
+#grain{position:fixed;inset:0;pointer-events:none;z-index:1001;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");background-size:200px;animation:grain .4s steps(1) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-2%,-1%)}50%{transform:translate(1%,2%)}75%{transform:translate(-1%,1%)}100%{transform:translate(2%,-2%)}}
+.click-ripple{position:fixed;border-radius:50%;background:rgba(0,245,255,.14);pointer-events:none;z-index:9996;animation:ripple-out .65s ease-out forwards;transform:translate(-50%,-50%)}
+@keyframes ripple-out{from{width:0;height:0;opacity:1}to{width:220px;height:220px;opacity:0}}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:800;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,5,8,.94);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,245,255,.07)}
+.nav-logo{font-family:'Orbitron',monospace;font-size:1rem;font-weight:900;letter-spacing:3px;color:var(--nc);text-shadow:var(--gc);text-decoration:none}
+.nav-logo span{color:var(--ng)}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-link{font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:2px;color:var(--td);text-decoration:none;transition:color .3s}
+.nav-link:hover{color:var(--nc)}
+.nav-cta{font-family:'Orbitron',monospace;font-size:.65rem;font-weight:700;letter-spacing:2px;color:var(--bg);background:var(--nc);padding:7px 18px;text-decoration:none;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:background .3s}
+.nav-cta:hover{background:var(--ng)}
+
+/* HERO */
+.hero{min-height:100vh;padding:100px 5% 80px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,245,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,.025) 1px,transparent 1px);background-size:64px 64px;animation:grid-move 22s linear infinite}
+@keyframes grid-move{to{background-position:64px 64px}}
+.hero-glow-c{position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,245,255,.06) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.hero-glow-v{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(ellipse,rgba(180,0,255,.08) 0%,transparent 70%);top:30%;left:80%;transform:translate(-50%,-50%);pointer-events:none}
+.hero-eyebrow{font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:5px;color:var(--nc);text-transform:uppercase;margin-bottom:16px;position:relative;display:flex;align-items:center;justify-content:center;gap:14px}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:38px;height:1px;background:var(--nc);box-shadow:var(--gc)}
+.hero-title{font-family:'Bebas Neue',monospace;font-size:clamp(3rem,9vw,8rem);font-weight:400;line-height:.92;letter-spacing:4px;margin-bottom:20px;position:relative}
+.hero-title .c{color:var(--nc);text-shadow:0 0 40px rgba(0,245,255,.4)}
+.hero-title .g{color:var(--ng);text-shadow:0 0 40px rgba(255,215,0,.4)}
+.hero-title .v{color:var(--nv);text-shadow:0 0 40px rgba(180,0,255,.4)}
+.hero-sub{font-family:'Exo 2',sans-serif;font-size:clamp(1rem,2vw,1.2rem);font-weight:300;color:var(--td);line-height:1.75;max-width:660px;margin:0 auto 44px;position:relative}
+.hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;margin-bottom:60px}
+.btn-neon{font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;letter-spacing:2px;color:var(--bg);background:linear-gradient(135deg,var(--nc),var(--nv));padding:16px 34px;text-decoration:none;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:box-shadow .3s,transform .3s;display:inline-flex;align-items:center;gap:8px;position:relative;overflow:hidden}
+.btn-neon::before{content:'';position:absolute;top:-50%;left:-60%;width:38%;height:200%;background:rgba(255,255,255,.16);transform:skewX(-22deg);transition:left .45s}
+.btn-neon:hover::before{left:130%}
+.btn-neon:hover{box-shadow:0 0 30px rgba(0,245,255,.45);transform:translateY(-2px)}
+.btn-outline{font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;letter-spacing:2px;color:var(--nc);background:transparent;border:1px solid rgba(0,245,255,.5);padding:15px 34px;text-decoration:none;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:all .3s;display:inline-flex;align-items:center;gap:8px}
+.btn-outline:hover{background:rgba(0,245,255,.08);box-shadow:var(--gc)}
+.hero-stats{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;position:relative}
+.hero-stat-num{font-family:'Orbitron',monospace;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;color:var(--nc);text-shadow:var(--gc);display:block;line-height:1}
+.hero-stat-lbl{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:2px;color:var(--td);text-transform:uppercase;margin-top:5px}
+
+/* SERVICES SECTION */
+.services{padding:100px 5%;background:var(--bgm)}
+.sec-tag{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:5px;color:var(--nc);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:14px}
+.sec-tag::before{content:'//';color:var(--nv)}
+.sec-title{font-family:'Bebas Neue',monospace;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:400;color:var(--tp);margin-bottom:14px;letter-spacing:3px;line-height:1}
+.sec-title span{color:var(--nc);text-shadow:var(--gc)}
+.sec-divider{width:56px;height:2px;background:linear-gradient(90deg,var(--nc),var(--nv));box-shadow:var(--gc);margin-bottom:56px}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.service-card{padding:32px 28px;background:var(--bgc);border:1px solid var(--bdr);position:relative;overflow:hidden;transition:border-color .35s,box-shadow .35s,transform .35s;cursor:none}
+.service-card:hover{border-color:rgba(0,245,255,.25);box-shadow:0 0 50px rgba(0,245,255,.06);transform:translateY(-5px)}
+.service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;transform:scaleX(0);transition:transform .4s;transform-origin:left}
+.service-card.c1::after{background:linear-gradient(90deg,var(--nc),var(--nv))}
+.service-card.c2::after{background:linear-gradient(90deg,var(--ng),#ff9f00)}
+.service-card.c3::after{background:linear-gradient(90deg,var(--nv),#6600cc)}
+.service-card.c4::after{background:linear-gradient(90deg,var(--nge),var(--nc))}
+.service-card.c5::after{background:linear-gradient(90deg,#ff2d55,#c00030)}
+.service-card.c6::after{background:linear-gradient(90deg,var(--nc),var(--ng))}
+.service-card:hover::after{transform:scaleX(1)}
+.service-icon{font-size:2rem;margin-bottom:18px;display:block}
+.service-card.c1 .service-icon{color:var(--nc);text-shadow:var(--gc)}
+.service-card.c2 .service-icon{color:var(--ng);text-shadow:var(--gg)}
+.service-card.c3 .service-icon{color:var(--nv);text-shadow:var(--gv)}
+.service-card.c4 .service-icon{color:var(--nge);text-shadow:0 0 10px var(--nge)}
+.service-card.c5 .service-icon{color:#ff2d55;text-shadow:0 0 10px rgba(255,45,85,.4)}
+.service-card.c6 .service-icon{color:var(--nc);text-shadow:var(--gc)}
+.service-title{font-family:'Bebas Neue',monospace;font-size:1.4rem;color:var(--tp);letter-spacing:3px;margin-bottom:10px}
+.service-desc{font-size:.85rem;color:var(--td);line-height:1.72;margin-bottom:18px}
+.service-features{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+.service-features li{font-size:.78rem;color:var(--td);display:flex;align-items:center;gap:8px}
+.service-features li::before{content:'→';color:var(--nc);font-size:.7rem;flex-shrink:0}
+.service-from{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:2px;color:var(--td)}
+.service-from strong{color:var(--nc);font-size:.78rem}
+.service-cta{display:inline-flex;align-items:center;gap:7px;font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:2px;color:var(--nc);text-decoration:none;border:1px solid rgba(0,245,255,.25);padding:7px 16px;margin-top:14px;transition:all .3s;cursor:none}
+.service-cta:hover{background:rgba(0,245,255,.07);border-color:rgba(0,245,255,.5)}
+
+/* WHY ME */
+.why-section{padding:100px 5%;background:var(--bg)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.why-visual{position:relative;padding:40px;background:linear-gradient(135deg,rgba(0,245,255,.04),rgba(180,0,255,.04));border:1px solid rgba(0,245,255,.1)}
+.why-visual::before{content:'ETHERIX';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Bebas Neue',monospace;font-size:5rem;color:rgba(0,245,255,.03);letter-spacing:8px;white-space:nowrap;pointer-events:none}
+.why-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative}
+.why-stat-card{padding:22px 20px;background:var(--bgc);border:1px solid var(--bdr);text-align:center}
+.why-stat-num{font-family:'Orbitron',monospace;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:900;color:var(--nc);text-shadow:var(--gc);display:block;margin-bottom:6px}
+.why-stat-lbl{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:2px;color:var(--td);text-transform:uppercase}
+.why-list{display:flex;flex-direction:column;gap:16px}
+.why-row{display:flex;gap:16px;align-items:flex-start;padding:18px 20px;background:var(--bgc);border:1px solid var(--bdr);border-left:2px solid var(--nc);transition:box-shadow .3s,transform .3s}
+.why-row:hover{box-shadow:-5px 0 20px rgba(0,245,255,.1);transform:translateX(4px)}
+.why-row i{color:var(--nc);font-size:1rem;margin-top:2px;flex-shrink:0}
+.why-row strong{display:block;font-family:'Orbitron',monospace;font-size:.68rem;font-weight:700;color:var(--tp);margin-bottom:3px;letter-spacing:1px}
+.why-row span{font-size:.84rem;color:var(--td)}
+
+/* INDUSTRIES */
+.industries{padding:100px 5%;background:var(--bgm)}
+.industry-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.industry-card{padding:22px 16px;background:var(--bgc);border:1px solid var(--bdr);text-align:center;transition:border-color .3s,box-shadow .3s,transform .3s;cursor:none}
+.industry-card:hover{border-color:rgba(180,0,255,.3);box-shadow:0 0 30px rgba(180,0,255,.07);transform:translateY(-4px)}
+.industry-card i{font-size:1.8rem;color:var(--nv);text-shadow:var(--gv);margin-bottom:10px;display:block;transition:transform .4s}
+.industry-card:hover i{transform:scale(1.2) rotateY(360deg)}
+.industry-card-lbl{font-family:'Bebas Neue',monospace;font-size:.95rem;color:var(--tp);letter-spacing:2px;margin-bottom:4px}
+.industry-card-sub{font-size:.72rem;color:var(--td)}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 5%;background:var(--bg)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.testi-card{padding:30px 26px;background:var(--bgc);border:1px solid var(--bdr);border-top:2px solid var(--nc);transition:transform .3s,box-shadow .3s}
+.testi-card:hover{transform:translateY(-4px);box-shadow:0 18px 55px rgba(0,245,255,.07)}
+.testi-stars{color:var(--ng);font-size:.75rem;margin-bottom:14px;letter-spacing:2px}
+.testi-text{font-size:.9rem;color:var(--td);line-height:1.75;font-style:italic;margin-bottom:20px}
+.testi-text::before{content:'"';font-family:'Bebas Neue',monospace;font-size:2.6rem;color:rgba(0,245,255,.14);display:block;line-height:1;margin-bottom:6px}
+.testi-author{display:flex;align-items:center;gap:12px}
+.testi-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--nc),var(--nv));display:flex;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-size:.82rem;font-weight:700;color:var(--bg)}
+.testi-name{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--tp);letter-spacing:1px}
+.testi-role{font-size:.72rem;color:var(--td)}
+
+/* FINAL CTA */
+.final-cta{padding:120px 5%;background:var(--bgm);text-align:center;position:relative;overflow:hidden}
+.final-cta::before{content:'BUILD';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Bebas Neue',monospace;font-size:18rem;color:rgba(0,245,255,.02);letter-spacing:16px;pointer-events:none;white-space:nowrap}
+.final-cta-eyebrow{font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:5px;color:var(--nc);text-transform:uppercase;margin-bottom:20px;position:relative}
+.final-cta-title{font-family:'Bebas Neue',monospace;font-size:clamp(3rem,7vw,6rem);color:var(--tp);letter-spacing:4px;margin-bottom:16px;line-height:.95;position:relative}
+.final-cta-title span{color:var(--nc);text-shadow:0 0 40px rgba(0,245,255,.4)}
+.final-cta-sub{font-size:.95rem;color:var(--td);max-width:520px;margin:0 auto 36px;line-height:1.72;position:relative}
+.final-cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+footer{background:var(--bg);border-top:1px solid var(--bdr);padding:36px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-logo{font-family:'Bebas Neue',monospace;font-size:1.1rem;letter-spacing:5px;color:var(--nc);text-shadow:var(--gc)}
+.footer-nav{display:flex;gap:20px}
+.footer-nav a{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:2px;color:var(--td);text-decoration:none;transition:color .3s}
+.footer-nav a:hover{color:var(--nc)}
+.footer-copy{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:2px;color:rgba(100,130,160,.3)}
+.footer-copy span{color:var(--nc)}
+
+@media(max-width:900px){.services-grid{grid-template-columns:1fr 1fr}.why-grid{grid-template-columns:1fr}.testi-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.services-grid{grid-template-columns:1fr}.hero-stats{gap:20px}}
+</style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+<div id="grain"></div>
+<div id="cursor-outer"></div>
+<div id="cursor-inner"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">ETHERIX<span>.</span></a>
+  <div class="nav-links">
+    <a href="projects.html" class="nav-link">PROJECTS</a>
+    <a href="pricing.html" class="nav-link">PRICING</a>
+    <a href="contact.html" class="nav-cta">HIRE ME</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow-c"></div>
+  <div class="hero-glow-v"></div>
+  <div class="hero-eyebrow">Etherix Develops · Services</div>
+  <h1 class="hero-title">
+    <span class="c">Design</span> that converts.<br>
+    <span class="g">Code</span> that scales.<br>
+    <span class="v">Results</span> that matter.
+  </h1>
+  <p class="hero-sub">From a 5-page startup website to a full e-commerce infrastructure — I build digital experiences with the precision of an engineer and the eye of a designer.</p>
+  <div class="hero-cta">
+    <a href="contact.html" class="btn-neon"><i class="fas fa-rocket"></i> START YOUR PROJECT</a>
+    <a href="projects.html" class="btn-outline"><i class="fas fa-eye"></i> SEE MY WORK</a>
+  </div>
+  <div class="hero-stats">
+    <div class="text-center"><span class="hero-stat-num">7</span><div class="hero-stat-lbl">Projects Live</div></div>
+    <div class="text-center"><span class="hero-stat-num">7</span><div class="hero-stat-lbl">Industries</div></div>
+    <div class="text-center"><span class="hero-stat-num">4d</span><div class="hero-stat-lbl">Fastest Delivery</div></div>
+    <div class="text-center"><span class="hero-stat-num">100%</span><div class="hero-stat-lbl">Client Satisfaction</div></div>
+    <div class="text-center"><span class="hero-stat-num">#1</span><div class="hero-stat-lbl">Academic Rank</div></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="sec-tag">What I Do</div>
+  <h2 class="sec-title">Services & <span>Capabilities</span></h2>
+  <div class="sec-divider"></div>
+  <div class="services-grid reveal">
+
+    <div class="service-card c1">
+      <i class="fas fa-globe service-icon"></i>
+      <div class="service-title">Web Design & Dev</div>
+      <p class="service-desc">Fully custom websites built from scratch — no templates, no shortcuts. Every pixel deliberate, every interaction purposeful.</p>
+      <ul class="service-features">
+        <li>Landing pages & multi-page sites</li>
+        <li>Scroll animations & micro-interactions</li>
+        <li>PageSpeed 90+ optimization</li>
+        <li>On-page SEO across all pages</li>
+        <li>CMS integration (WordPress / custom)</li>
+      </ul>
+      <div class="service-from">Starting from <strong>₹15,000</strong></div>
+      <a href="pricing.html" class="service-cta"><i class="fas fa-arrow-right"></i> VIEW PACKAGES</a>
+    </div>
+
+    <div class="service-card c2">
+      <i class="fas fa-mobile-alt service-icon"></i>
+      <div class="service-title">Mobile App Dev</div>
+      <p class="service-desc">Cross-platform mobile apps built with React Native — native performance, single codebase, deployed on both iOS and Android.</p>
+      <ul class="service-features">
+        <li>React Native (iOS & Android)</li>
+        <li>Firebase / Appwrite backend</li>
+        <li>Auth, notifications, storage</li>
+        <li>App Store & Play Store setup</li>
+        <li>Full source code handover</li>
+      </ul>
+      <div class="service-from">Starting from <strong>₹50,000</strong></div>
+      <a href="contact.html" class="service-cta"><i class="fas fa-arrow-right"></i> GET A QUOTE</a>
+    </div>
+
+    <div class="service-card c3">
+      <i class="fas fa-cube service-icon"></i>
+      <div class="service-title">3D / WebGL Experiences</div>
+      <p class="service-desc">Immersive 3D web experiences using Three.js and WebGL. Interactive product visualizers, animated hero sections, and full cinematic builds.</p>
+      <ul class="service-features">
+        <li>Three.js / WebGL builds</li>
+        <li>3D product showcases</li>
+        <li>Particle systems & geometry</li>
+        <li>GSAP scroll animations</li>
+        <li>GPU-optimized performance</li>
+      </ul>
+      <div class="service-from">Starting from <strong>₹80,000</strong></div>
+      <a href="contact.html" class="service-cta"><i class="fas fa-arrow-right"></i> GET A QUOTE</a>
+    </div>
+
+    <div class="service-card c4">
+      <i class="fas fa-store service-icon"></i>
+      <div class="service-title">E-Commerce Stores</div>
+      <p class="service-desc">Full e-commerce infrastructure — product management, payment gateways, order tracking, admin dashboards, and inventory systems built to scale.</p>
+      <ul class="service-features">
+        <li>Razorpay / Stripe integration</li>
+        <li>Custom cart & checkout flow</li>
+        <li>Admin dashboard & analytics</li>
+        <li>Inventory & order tracking</li>
+        <li>Mobile-first responsive design</li>
+      </ul>
+      <div class="service-from">Starting from <strong>₹1,20,000</strong></div>
+      <a href="pricing.html" class="service-cta"><i class="fas fa-arrow-right"></i> VIEW PACKAGES</a>
+    </div>
+
+    <div class="service-card c5">
+      <i class="fas fa-palette service-icon"></i>
+      <div class="service-title">Brand Identity</div>
+      <p class="service-desc">Logo design, color systems, typography scales, brand voice, and complete style guides. Your brand, codified and deployable across every medium.</p>
+      <ul class="service-features">
+        <li>Logo design & variations</li>
+        <li>Color palette & typography</li>
+        <li>Brand style guide PDF</li>
+        <li>Business card & collateral</li>
+        <li>Social media kit</li>
+      </ul>
+      <div class="service-from">Starting from <strong>₹5,000</strong></div>
+      <a href="contact.html" class="service-cta"><i class="fas fa-arrow-right"></i> GET A QUOTE</a>
+    </div>
+
+    <div class="service-card c6">
+      <i class="fas fa-tools service-icon"></i>
+      <div class="service-title">Maintenance & Support</div>
+      <p class="service-desc">Ongoing site maintenance, security updates, content changes, performance monitoring, and feature additions — on a monthly retainer basis.</p>
+      <ul class="service-features">
+        <li>Bug fixes & compatibility patches</li>
+        <li>Content & image updates</li>
+        <li>Performance monitoring</li>
+        <li>Security hardening</li>
+        <li>Monthly performance report</li>
+      </ul>
+      <div class="service-from">Starting from <strong>₹2,000/mo</strong></div>
+      <a href="contact.html" class="service-cta"><i class="fas fa-arrow-right"></i> GET STARTED</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY ME -->
+<section class="why-section">
+  <div class="sec-tag">The Advantage</div>
+  <h2 class="sec-title">Why <span>Etherix</span></h2>
+  <div class="sec-divider"></div>
+  <div class="why-grid reveal">
+    <div class="why-visual">
+      <div class="why-stats-grid">
+        <div class="why-stat-card"><span class="why-stat-num">16</span><span class="why-stat-lbl">Years Old</span></div>
+        <div class="why-stat-card"><span class="why-stat-num">#1</span><span class="why-stat-lbl">Academic Rank</span></div>
+        <div class="why-stat-card"><span class="why-stat-num">6h</span><span class="why-stat-lbl">Daily Focus</span></div>
+        <div class="why-stat-card"><span class="why-stat-num">0</span><span class="why-stat-lbl">Missed Deadlines</span></div>
+        <div class="why-stat-card" style="grid-column:span 2;padding:18px"><span class="why-stat-num" style="font-size:1.2rem">"Elegance in Every Pixel,<br>Simplicity is My Signature."</span><span class="why-stat-lbl">— Chaitanya Sujit Patil</span></div>
+      </div>
+    </div>
+    <div class="why-list">
+      <div class="why-row"><i class="fas fa-bolt"></i><div><strong>Faster Than Agencies</strong><span>No layers of account managers. You talk directly to the person building your site — decisions happen in minutes, not days.</span></div></div>
+      <div class="why-row"><i class="fas fa-tag"></i><div><strong>Competitive Pricing</strong><span>Agency quality at freelance rates. Every budget range gets the same standard of excellence — just different scope.</span></div></div>
+      <div class="why-row"><i class="fas fa-lock"></i><div><strong>Full Ownership Transfer</strong><span>You own everything — code, assets, domains. No licensing, no dependency on me to keep your site alive.</span></div></div>
+      <div class="why-row"><i class="fas fa-eye"></i><div><strong>Design-First Thinking</strong><span>Every decision is made with the user in mind. Beautiful AND functional. Aesthetics that convert, not just impress.</span></div></div>
+      <div class="why-row"><i class="fas fa-shield-alt"></i><div><strong>Satisfaction Guaranteed</strong><span>Unlimited revisions until you're 100% happy. If it's not right, we fix it. No questions, no extra charges.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="industries">
+  <div class="sec-tag">Experience</div>
+  <h2 class="sec-title">Industries <span>Served</span></h2>
+  <div class="sec-divider"></div>
+  <div class="industry-grid reveal">
+    <div class="industry-card"><i class="fas fa-industry"></i><div class="industry-card-lbl">Manufacturing</div><div class="industry-card-sub">B2B industrial sites</div></div>
+    <div class="industry-card"><i class="fas fa-wine-glass"></i><div class="industry-card-lbl">Beverage</div><div class="industry-card-sub">Startup brand platforms</div></div>
+    <div class="industry-card"><i class="fas fa-helicopter"></i><div class="industry-card-lbl">Aviation</div><div class="industry-card-sub">Charter & fleet portals</div></div>
+    <div class="industry-card"><i class="fas fa-spa"></i><div class="industry-card-lbl">Wellness</div><div class="industry-card-sub">Health brand presence</div></div>
+    <div class="industry-card"><i class="fas fa-tshirt"></i><div class="industry-card-lbl">Fashion</div><div class="industry-card-sub">Luxury e-commerce</div></div>
+    <div class="industry-card"><i class="fas fa-coffee"></i><div class="industry-card-lbl">Food & Bev</div><div class="industry-card-sub">Cafe & restaurant</div></div>
+    <div class="industry-card"><i class="fas fa-dumbbell"></i><div class="industry-card-lbl">Fitness</div><div class="industry-card-sub">Gym membership sites</div></div>
+    <div class="industry-card"><i class="fas fa-laptop-code"></i><div class="industry-card-lbl">Tech / SaaS</div><div class="industry-card-sub">Product & app sites</div></div>
+    <div class="industry-card"><i class="fas fa-graduation-cap"></i><div class="industry-card-lbl">Education</div><div class="industry-card-sub">EdTech platforms</div></div>
+    <div class="industry-card"><i class="fas fa-home"></i><div class="industry-card-lbl">Real Estate</div><div class="industry-card-sub">Property showcases</div></div>
+    <div class="industry-card"><i class="fas fa-chart-line"></i><div class="industry-card-lbl">Finance</div><div class="industry-card-sub">Trading & fin-tech</div></div>
+    <div class="industry-card" style="border-style:dashed;border-color:rgba(0,245,255,.2)"><i class="fas fa-plus" style="color:rgba(0,245,255,.4)"></i><div class="industry-card-lbl" style="color:var(--td)">Your Industry</div><div class="industry-card-sub">Every domain welcome</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="sec-tag">Social Proof</div>
+  <h2 class="sec-title">What People <span>Say</span></h2>
+  <div class="sec-divider"></div>
+  <div class="testi-grid reveal">
+    <div class="testi-card"><div class="testi-stars">★ ★ ★ ★ ★</div><div class="testi-text">Executes with precision beyond his age. Every delivery surpasses expectations in both form and function. One of the most reliable developers I've worked with.</div><div class="testi-author"><div class="testi-avatar">A</div><div><div class="testi-name">Academic Peer</div><div class="testi-role">Fellow Developer</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★ ★ ★ ★ ★</div><div class="testi-text">Maintains an elite level of focus and consistency that is rarely seen in someone so young. Delivered on time, on budget, and beyond the original brief.</div><div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentor</div><div class="testi-role">Tech Community</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★ ★ ★ ★ ★</div><div class="testi-text">Possesses a rare combination of creativity and strategic thinking. The site he built for our business genuinely converted — it wasn't just beautiful, it worked.</div><div class="testi-author"><div class="testi-avatar">C</div><div><div class="testi-name">Client</div><div class="testi-role">Business Owner</div></div></div></div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-eyebrow">Ready? Let's Build Something Extraordinary</div>
+  <h2 class="final-cta-title">Your Vision.<br><span>My Execution.</span></h2>
+  <p class="final-cta-sub">The difference between a good idea and a live product is one conversation. Let's have it.</p>
+  <div class="final-cta-row">
+    <a href="contact.html" class="btn-neon"><i class="fas fa-paper-plane"></i> GET IN TOUCH</a>
+    <a href="pricing.html" class="btn-outline"><i class="fas fa-tag"></i> VIEW PRICING</a>
+    <a href="projects.html" class="btn-outline"><i class="fas fa-rocket"></i> SEE PROJECTS</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">ETHERIX<span style="color:var(--ng)">.</span>DEVELOPS</div>
+  <div class="footer-nav">
+    <a href="projects.html">Projects</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 <span>Chaitanya Sujit Patil</span></div>
+</footer>
+
+<script>
+const co=document.getElementById('cursor-outer'),ci=document.getElementById('cursor-inner');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;ci.style.left=mx+'px';ci.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;co.style.left=rx+'px';co.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.service-card,.industry-card,.testi-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{co.style.transform='translate(-50%,-50%) scale(1.9)';co.style.borderColor='var(--ng)'});
+  el.addEventListener('mouseleave',()=>{co.style.transform='translate(-50%,-50%) scale(1)';co.style.borderColor='var(--nc)'});
+});
+document.addEventListener('click',e=>{const r=document.createElement('div');r.className='click-ripple';r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';document.body.appendChild(r);setTimeout(()=>r.remove(),680)});
+const prog=document.getElementById('scroll-progress');
+window.addEventListener('scroll',()=>{const s=document.documentElement;prog.style.width=(s.scrollTop/(s.scrollHeight-s.clientHeight)*100)+'%'});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.06});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
